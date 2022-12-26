@@ -112,6 +112,9 @@ class GameView(context: Context, attributes: AttributeSet): SurfaceView(context,
 
     override fun draw(canvas: Canvas){
         super.draw(canvas)
+        // cái nào vẽ trc thì nằm ở dưới
+
+        createMap(canvas)
         // Draw barriers
         for(i in 0..MAX_BARRIERS_ON_SCREEN-1){
             barriers[i].draw(canvas)
@@ -131,6 +134,8 @@ class GameView(context: Context, attributes: AttributeSet): SurfaceView(context,
         if (player!!.getHealthPercentage() == 0){
             gameOver!!.draw(canvas)
         }
+
+
     }
 
 
@@ -214,5 +219,12 @@ class GameView(context: Context, attributes: AttributeSet): SurfaceView(context,
             BitmapFactory.decodeResource(resources, R.drawable.ghost_6),
             BitmapFactory.decodeResource(resources, R.drawable.ghost_7)
         )
+    }
+    private fun createMap(canvas: Canvas){
+        var map = BitmapFactory.decodeResource(resources, R.drawable.background)
+        var paint = Paint()
+        var dest = Rect(0, 0, getWidth(), getHeight());
+        paint.setFilterBitmap(true)
+        canvas.drawBitmap(map, null, dest, paint);
     }
 }
