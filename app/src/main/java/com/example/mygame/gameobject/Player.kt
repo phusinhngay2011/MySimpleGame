@@ -6,10 +6,11 @@ import com.example.mygame.gamepanel.HealthBar
 
 // Main character
 
-class Player(img: Bitmap): GameObject(img) {
+class Player(bitmap: Array<Bitmap>): GameObject(bitmap) {
     private final var MAX_HEALTH = 100
     private var health = MAX_HEALTH
     private var healthBar: HealthBar? = HealthBar(this)
+    private var SPEED = 2
 
     init {
         x = screenWidth / 2
@@ -19,6 +20,7 @@ class Player(img: Bitmap): GameObject(img) {
 
     override fun update(){
         healthBar!!.update()
+        indexSelected = (indexSelected + SPEED) % bitmap.size
     }
 
     override fun updateTouch(touch_x: Int, touch_y: Int) {
@@ -35,6 +37,7 @@ class Player(img: Bitmap): GameObject(img) {
     fun getHealthPercentage(): Int{
         return health * 100 / MAX_HEALTH
     }
+
     fun getDamaged(damage: Int){
         health = Math.max(health - damage, 0)
     }

@@ -12,7 +12,7 @@ import com.example.mygame.gameobject.Player
 import com.example.mygame.gamepanel.GameOver
 import com.example.mygame.gamepanel.Perfomance
 
-class GameView(context: Context, attributes: AttributeSet?): SurfaceView(context, attributes), SurfaceHolder.Callback{
+class GameView(context: Context, attributes: AttributeSet): SurfaceView(context, attributes), SurfaceHolder.Callback{
     private var thread: GameThread
     private var displayFPS: Boolean = true
 
@@ -21,29 +21,12 @@ class GameView(context: Context, attributes: AttributeSet?): SurfaceView(context
     private var touched_y: Int = 0
 
     // Bitmap
-    private final var player_bitmap = BitmapFactory.
-                decodeResource(resources, R.drawable.player_0);
-
     private final val MAX_BARRIERS_ON_SCREEN = 3;
-    private final val barrier_bitmaps = arrayOf(
-        BitmapFactory.decodeResource(resources, R.drawable.barrier_0),
-        BitmapFactory.decodeResource(resources, R.drawable.barrier_1),
-        BitmapFactory.decodeResource(resources, R.drawable.barrier_2),
-        BitmapFactory.decodeResource(resources, R.drawable.barrier_3),
-        BitmapFactory.decodeResource(resources, R.drawable.barrier_4)
-    )
-
     private final val MAX_GHOSTS_ON_SCREEN = 2;
-    private final val ghost_bitmaps = arrayOf(
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_0),
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_1),
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_2),
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_3),
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_4),
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_5),
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_6),
-        BitmapFactory.decodeResource(resources, R.drawable.ghost_7)
-    )
+
+    private final var player_bitmaps = emptyArray<Bitmap>()
+    private final var barrier_bitmaps = emptyArray<Bitmap>()
+    private final var ghost_bitmaps = emptyArray<Bitmap>()
 
     // Objects
     private final var player: Player? = null
@@ -59,12 +42,15 @@ class GameView(context: Context, attributes: AttributeSet?): SurfaceView(context
         // instantiate the game thread
         thread = GameThread(holder, this)
 
+        // CREATE BITMAP
+        createBitmaps()
+
         // GAME OBJECT
-        player = Player(player_bitmap)
+        player = Player(player_bitmaps)
         for (i in 0..MAX_BARRIERS_ON_SCREEN-1){
             val index = (0..barrier_bitmaps.size - 1).random()
             barriers += Barrier(
-                barrier_bitmaps[index],
+                barrier_bitmaps,
                 player!!,
                 i,
                 MAX_BARRIERS_ON_SCREEN
@@ -74,7 +60,7 @@ class GameView(context: Context, attributes: AttributeSet?): SurfaceView(context
         for (i in 0..MAX_GHOSTS_ON_SCREEN-1){
             val index = (0..ghost_bitmaps.size - 1).random()
             ghosts += Ghost(
-                ghost_bitmaps[index],
+                ghost_bitmaps,
                 player!!,
                 20F
             )
@@ -111,16 +97,13 @@ class GameView(context: Context, attributes: AttributeSet?): SurfaceView(context
         }
 
         // update Barriers
-        for(i in 0 .. MAX_BARRIERS_ON_SCREEN-1){
+        for(i in 0 .. MAX_BARRIERS_ON_SCREEN-1)
             barriers[i].update()
-            barriers[i].changeImg(barrier_bitmaps[(0..barrier_bitmaps.size-1).random()])
-        }
+
 
         // Update Ghosts
-        for(i in 0 .. MAX_GHOSTS_ON_SCREEN-1){
+        for(i in 0 .. MAX_GHOSTS_ON_SCREEN-1)
             ghosts[i].update()
-            ghosts[i].changeImg(ghost_bitmaps[(0..ghost_bitmaps.size-1).random()])
-        }
         // Update Player
         player!!.update()
         // update if touch screen
@@ -179,4 +162,57 @@ class GameView(context: Context, attributes: AttributeSet?): SurfaceView(context
         thread.stopLoop()
     }
 
+    fun createBitmaps(){
+        player_bitmaps = arrayOf(
+            BitmapFactory.decodeResource(resources, R.drawable.player_0),
+            BitmapFactory.decodeResource(resources, R.drawable.player_1),
+            BitmapFactory.decodeResource(resources, R.drawable.player_2),
+            BitmapFactory.decodeResource(resources, R.drawable.player_3),
+            BitmapFactory.decodeResource(resources, R.drawable.player_4),
+            BitmapFactory.decodeResource(resources, R.drawable.player_5),
+            BitmapFactory.decodeResource(resources, R.drawable.player_7),
+            BitmapFactory.decodeResource(resources, R.drawable.player_8),
+            BitmapFactory.decodeResource(resources, R.drawable.player_9),
+            BitmapFactory.decodeResource(resources, R.drawable.player_10),
+            BitmapFactory.decodeResource(resources, R.drawable.player_11),
+            BitmapFactory.decodeResource(resources, R.drawable.player_12),
+            BitmapFactory.decodeResource(resources, R.drawable.player_13),
+            BitmapFactory.decodeResource(resources, R.drawable.player_14),
+            BitmapFactory.decodeResource(resources, R.drawable.player_15),
+            BitmapFactory.decodeResource(resources, R.drawable.player_16),
+            BitmapFactory.decodeResource(resources, R.drawable.player_17),
+            BitmapFactory.decodeResource(resources, R.drawable.player_18),
+            BitmapFactory.decodeResource(resources, R.drawable.player_19),
+            BitmapFactory.decodeResource(resources, R.drawable.player_20),
+            BitmapFactory.decodeResource(resources, R.drawable.player_21),
+            BitmapFactory.decodeResource(resources, R.drawable.player_22),
+            BitmapFactory.decodeResource(resources, R.drawable.player_23),
+            BitmapFactory.decodeResource(resources, R.drawable.player_24),
+            BitmapFactory.decodeResource(resources, R.drawable.player_25),
+            BitmapFactory.decodeResource(resources, R.drawable.player_26),
+            BitmapFactory.decodeResource(resources, R.drawable.player_27),
+            BitmapFactory.decodeResource(resources, R.drawable.player_28),
+            BitmapFactory.decodeResource(resources, R.drawable.player_29),
+            BitmapFactory.decodeResource(resources, R.drawable.player_30),
+        )
+
+        barrier_bitmaps = arrayOf(
+            BitmapFactory.decodeResource(resources, R.drawable.barrier_0),
+            BitmapFactory.decodeResource(resources, R.drawable.barrier_1),
+            BitmapFactory.decodeResource(resources, R.drawable.barrier_2),
+            BitmapFactory.decodeResource(resources, R.drawable.barrier_3),
+            BitmapFactory.decodeResource(resources, R.drawable.barrier_4)
+        )
+
+        ghost_bitmaps = arrayOf(
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_0),
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_1),
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_2),
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_3),
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_4),
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_5),
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_6),
+            BitmapFactory.decodeResource(resources, R.drawable.ghost_7)
+        )
+    }
 }

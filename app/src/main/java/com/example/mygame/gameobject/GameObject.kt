@@ -4,7 +4,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 
-abstract class GameObject(var img: Bitmap) {
+abstract class GameObject(var bitmap: Array<Bitmap>) {
     var x: Int = 0
     var y: Int = 0
     protected var velocityX: Float = 0F
@@ -17,15 +17,16 @@ abstract class GameObject(var img: Bitmap) {
         Resources.getSystem().displayMetrics.widthPixels
     protected final var screenHeight =
         Resources.getSystem().displayMetrics.heightPixels
+    protected var indexSelected: Int = 0
 
     init {
-        w = img.width
-        h = img.height
+        w = bitmap[0].width
+        h = bitmap[0].height
     }
 
     open fun draw(canvas: Canvas){
-        canvas.drawBitmap(img, x.toFloat(), y.toFloat(), null)
-
+        canvas.drawBitmap(bitmap[indexSelected],
+            x.toFloat(), y.toFloat(), null)
     }
 
 
