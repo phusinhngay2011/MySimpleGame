@@ -12,7 +12,7 @@ class Ghost(bitmap: Array<Bitmap>, player: Player, _velocity: Float = 30F): Game
     private final var incrementalVelocity = .3F
 
     private final val damageToPlayer: Int = 10
-    private final val collideDistance: Int = (w!! + h!!) / 4
+    private final val collideDistance: Int = (w!! + h!!) / 3
 
     init {
         calculateVX_VY(velocity)
@@ -32,7 +32,7 @@ class Ghost(bitmap: Array<Bitmap>, player: Player, _velocity: Float = 30F): Game
 
     private fun calculateVX_VY(veloc: Float){
         x_double = (0..screenWidth).random().toDouble()
-        y_double = w!!.toDouble()
+        y_double = -(1..3).random() * w!!.toDouble()
 
         slope = (player.y - y_double).toDouble() / (player.x - x_double).toDouble()
         if(Math.abs(slope) < 1E-5){

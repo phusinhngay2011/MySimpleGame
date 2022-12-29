@@ -6,7 +6,7 @@ import android.view.SurfaceHolder
 class GameThread(private val surfaceHolder: SurfaceHolder,
                  private val gameView: GameView): Thread()  {
     private var isRunning: Boolean = false
-    private val FPS = 30
+    private val FPS = 45
     private var avgFPS =  0.0
 
     fun getAverageFPS(): Double{

@@ -39,7 +39,7 @@ class Barrier(bitmap: Array<Bitmap>, player: Player, index: Int, maxBarrier: Int
 
     fun reset(){
         velocityY += incrementalVelocity
-        y = -1 * (1..3).random() * h!!
+        y = -1 * (1..5).random() * h!!
         x =((index + Random.nextDouble(.3, .6)) * screenWidth.toFloat()
                 / maxBarrier
                 ).toInt()

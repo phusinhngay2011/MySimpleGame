@@ -3,13 +3,14 @@ package com.example.mygame.gamepanel
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.util.Log
 import com.example.mygame.gameobject.Player
 
 class HealthBar(player: Player){
     private var player = player
     private var x: Float = 0F
     private var y: Float = 0F
-    private var w: Int = 100
+    private var w: Int = player.w!!
     private var h: Int = 30
 
     // Left, Right, Bottom, Top
@@ -44,10 +45,11 @@ class HealthBar(player: Player){
 
         var percent = player.getHealthPercentage() * w / 100
         fullHealthBarRec[0] = x
-        fullHealthBarRec[1] = x + player.w!!
+        fullHealthBarRec[1] = x + w
         fullHealthBarRec[2] = y - marginBottom
         fullHealthBarRec[3] = fullHealthBarRec[2] - h
 
+        Log.d("Health bar", percent.toString())
         healthBarRec[0] = fullHealthBarRec[0]
         healthBarRec[1] = healthBarRec[0] + percent
         healthBarRec[2] = fullHealthBarRec[2]

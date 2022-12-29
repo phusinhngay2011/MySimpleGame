@@ -22,12 +22,12 @@ class GameView(context: Context, attributes: AttributeSet): SurfaceView(context,
 
     // Bitmap
     private final val MAX_BARRIERS_ON_SCREEN = 3;
-    private final val MAX_GHOSTS_ON_SCREEN = 2;
+    private final val MAX_GHOSTS_ON_SCREEN = 4;
 
     private final var player_bitmaps = emptyArray<Bitmap>()
     private final var barrier_bitmaps = emptyArray<Bitmap>()
     private final var ghost_bitmaps = emptyArray<Bitmap>()
-
+    private final var map: Bitmap? = null
     // Objects
     private final var player: Player? = null
     private final var barriers = emptyArray<Barrier>()
@@ -48,7 +48,6 @@ class GameView(context: Context, attributes: AttributeSet): SurfaceView(context,
         // GAME OBJECT
         player = Player(player_bitmaps)
         for (i in 0..MAX_BARRIERS_ON_SCREEN-1){
-            val index = (0..barrier_bitmaps.size - 1).random()
             barriers += Barrier(
                 barrier_bitmaps,
                 player!!,
@@ -58,11 +57,10 @@ class GameView(context: Context, attributes: AttributeSet): SurfaceView(context,
         }
 
         for (i in 0..MAX_GHOSTS_ON_SCREEN-1){
-            val index = (0..ghost_bitmaps.size - 1).random()
             ghosts += Ghost(
                 ghost_bitmaps,
                 player!!,
-                20F
+                (20..30).random().toFloat()
             )
         }
 
@@ -218,13 +216,15 @@ class GameView(context: Context, attributes: AttributeSet): SurfaceView(context,
             BitmapFactory.decodeResource(resources, R.drawable.ghost_5),
             BitmapFactory.decodeResource(resources, R.drawable.ghost_6),
             BitmapFactory.decodeResource(resources, R.drawable.ghost_7)
+
         )
+        map = BitmapFactory.decodeResource(resources, R.drawable.background)
     }
     private fun createMap(canvas: Canvas){
-        var map = BitmapFactory.decodeResource(resources, R.drawable.background)
+        //var map = BitmapFactory.decodeResource(resources, R.drawable.background)
         var paint = Paint()
         var dest = Rect(0, 0, getWidth(), getHeight());
         paint.setFilterBitmap(true)
-        canvas.drawBitmap(map, null, dest, paint);
+        canvas.drawBitmap(map!!, null, dest, paint);
     }
 }

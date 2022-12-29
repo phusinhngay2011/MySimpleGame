@@ -2,6 +2,7 @@ package com.example.mygame.gameobject
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.util.Log
 import com.example.mygame.gamepanel.HealthBar
 
 // Main character
@@ -35,6 +36,7 @@ class Player(bitmap: Array<Bitmap>): GameObject(bitmap) {
         healthBar!!.draw(canvas)
     }
     fun getHealthPercentage(): Int{
+        //Log.d("Health bar", health.toString())
         return health * 100 / MAX_HEALTH
     }
 
